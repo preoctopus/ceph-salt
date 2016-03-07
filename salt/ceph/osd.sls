@@ -44,6 +44,9 @@ disk_activate {{ dev }}1:
 {% endif -%}
 {% endfor -%}
 
-start ceph-osd-all:
-  cmd.run:
-    - onlyif: initctl list | grep "ceph-osd-all stop/waiting"
+/etc/init.d/ceph start osd.{{ conf.host }}:
+  cmd.run
+
+#start ceph-osd-all:
+#  cmd.run:
+#    - onlyif: initctl list | grep "ceph-osd-all stop/waiting"

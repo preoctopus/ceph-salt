@@ -95,10 +95,17 @@ populate_mon:
 
 start_mon:
   cmd.run:
-    - name: start ceph-mon id={{ conf.host }} cluster={{ conf.cluster }}
-    - unless: status ceph-mon id={{ conf.host }} cluster={{ conf.cluster }}
+    - name: /etc/init.d/ceph start mon.{{ conf.host }} --cluster {{ conf.cluster }}
+    - unless: /etc/init.d/ceph status mon.{{ conf.host }} --cluster {{ conf.cluster }}
     - require:
       - cmd: populate_mon
+
+#start_mon:
+#  cmd.run:
+#    - name: start ceph-mon id={{ conf.host }} cluster={{ conf.cluster }}
+#    - unless: status ceph-mon id={{ conf.host }} cluster={{ conf.cluster }}
+#    - require:
+#      - cmd: populate_mon
 
 osd_keyring_wait:
   cmd.wait:
@@ -114,5 +121,8 @@ cp.push {{ conf.bootstrap_osd_keyring }}:
     - watch:
       - cmd: osd_keyring_wait
 
-/var/lib/ceph/mon/{{ conf.cluster }}-{{ conf.host }}/upstart:
+/var/lib/ceph/mon/{{ conf.cluster }}-{{ conf.host }}/sysvinit:
   file.touch: []
+
+#/var/lib/ceph/mon/{{ conf.cluster }}-{{ conf.host }}/upstart:
+#  file.touch: []
