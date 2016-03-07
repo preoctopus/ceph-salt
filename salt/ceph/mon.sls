@@ -95,8 +95,8 @@ populate_mon:
 
 start_mon:
   cmd.run:
-    - name: /etc/init.d/ceph start mon.{{ conf.host }} --cluster {{ conf.cluster }}
-    - unless: /etc/init.d/ceph status mon.{{ conf.host }} --cluster {{ conf.cluster }}
+    - name: /etc/init.d/ceph --cluster {{ conf.cluster }} start mon.{{ conf.host }}
+    - unless: /etc/init.d/ceph --cluster {{ conf.cluster }} status mon.{{ conf.host }}
     - require:
       - cmd: populate_mon
 

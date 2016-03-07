@@ -44,7 +44,7 @@ disk_activate {{ dev }}1:
 {% endif -%}
 {% endfor -%}
 
-/etc/init.d/ceph start osd.{{ conf.host }}:
+/etc/init.d/ceph --cluster {{ conf.cluster }}  start osd.{{ conf.host }}:
   cmd.run
 
 #start ceph-osd-all:

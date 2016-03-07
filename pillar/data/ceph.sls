@@ -27,9 +27,7 @@ ceph:
     scrub_load_threshold: "0.5"
     map_cache_size: 512
     max_backfills: 2
-    pool_default_min_size: 1
     pool_default_pg_num: 128
     pool_default_pgp_num: 128
-    pool_default_size: 3
   mon:
     interface: eth1
